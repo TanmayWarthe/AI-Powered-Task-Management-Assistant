@@ -20,11 +20,18 @@ app.get('/api/test', (req, res) => {
 
 app.use('/api/auth', require('./routes/auth'));
 
+app.use('/api/tasks', require('./routes/tasks'));
+
 
 // Database connection with better error handling
 mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  serverApi: {
+    version: '1',
+    strict: true,
+    deprecationErrors: true
+  },
+  retryWrites: true,
+  w: 'majority'
 })
 .then(() => console.log('✅ MongoDB connected successfully'))
 .catch(err => {
