@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { TaskProvider } from './context/TaskContext'; 
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -31,6 +32,7 @@ const PublicRoute = ({ children }) => {
 function App() {
   return (
     <AuthProvider>
+      <TaskProvider>
       <Router>
         <div className="App">
           <Routes>
@@ -58,6 +60,7 @@ function App() {
           </Routes>
         </div>
       </Router>
+      </TaskProvider>
     </AuthProvider>
   );
 }

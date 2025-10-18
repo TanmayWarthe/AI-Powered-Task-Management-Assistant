@@ -63,9 +63,67 @@ export const authAPI = {
   }
 };
 
-// Tasks API functions (we'll add these later)
+// Tasks API functions
 export const tasksAPI = {
-  // We'll implement these in next steps
+  // Create new task
+  createTask: async (taskData) => {
+    try {
+      const response = await API.post('/tasks', taskData);
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || { message: 'Failed to create task' };
+    }
+  },
+
+  // Get all tasks for user
+  getTasks: async (filters = {}) => {
+    try {
+      const response = await API.get('/tasks', { params: filters });
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || { message: 'Failed to fetch tasks' };
+    }
+  },
+
+  // Update task status
+  updateTaskStatus: async (taskId, status) => {
+    try {
+      const response = await API.patch(`/tasks/${taskId}/status`, { status });
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || { message: 'Failed to update task status' };
+    }
+  },
+
+  // Update task
+  updateTask: async (taskId, taskData) => {
+    try {
+      const response = await API.put(`/tasks/${taskId}`, taskData);
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || { message: 'Failed to update task' };
+    }
+  },
+
+  // Delete task
+  deleteTask: async (taskId) => {
+    try {
+      const response = await API.delete(`/tasks/${taskId}`);
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || { message: 'Failed to delete task' };
+    }
+  },
+
+  // Get task statistics
+  getTaskStats: async () => {
+    try {
+      const response = await API.get('/tasks/stats/overview');
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || { message: 'Failed to fetch stats' };
+    }
+  }
 };
 
 export default API;
